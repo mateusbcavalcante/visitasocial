@@ -26,4 +26,9 @@ public class Prestador implements Serializable {
 	public void setCodPrestador(Integer codPrestador) {
 		this.codPrestador = codPrestador;
 	}
+
+	@Override
+	public String toString() {
+		return "Prestador [codPrestador=" + codPrestador + "]";
+	}
 }

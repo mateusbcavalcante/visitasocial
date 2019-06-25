@@ -26,4 +26,9 @@ public class UnimedProducao implements Serializable {
 	public void setUnimeds(Unimeds unimeds) {
 		this.unimeds = unimeds;
 	}
+
+	@Override
+	public String toString() {
+		return "UnimedProducao [unimeds=" + unimeds + "]";
+	}
 }

@@ -15,7 +15,7 @@ public class FileUtils
 {
 	static Logger logger = Logger.getLogger(FileUtils.class);
 	
-	public static final String PATH_LOG = "C:\\temp\\visitasocial\\logging.log";
+	public static final String PATH_LOG = "C:\\Temp\\visitasocial\\logging.log";
 	
 	public static void apagarConteudo()
 	{
@@ -30,7 +30,7 @@ public class FileUtils
 			fileWriter = new FileWriter(new File(PATH_LOG));
 			leitor = new BufferedReader(fileReader);
 			
-            while ((line = leitor.readLine()) != null) 
+            while ((line = leitor.readLine()) != null)
             {  
                 fileWriter.write(line + "\r\n");
             }  

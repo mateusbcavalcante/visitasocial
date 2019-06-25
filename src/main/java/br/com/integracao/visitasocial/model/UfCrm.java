@@ -11,6 +11,17 @@ public class UfCrm implements Serializable {
 
 	private String ufCrm;
 
+	public UfCrm()
+	{
+		
+	}
+	
+	public UfCrm(String ufCrm) 
+	{
+		super();
+		this.ufCrm = ufCrm;
+	}
+
 	public String getUfCrm() {
 		return ufCrm;
 	}

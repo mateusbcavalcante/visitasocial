@@ -13,4 +13,10 @@ public interface BaseConstants
 	final static String ERASE_FILE_ERROR = "Não foi possível limpar arquivo.";
 	
 	final static String CLOSE_CONNECTION_FILE_ERROR = "Não foi possível fechar a conexão com o arquivo.";
+	
+	final static String PARSER_ERROR = "Não foi possível formatar data.";
+	
+	final static String CARTEIRA_BENEFICIARIO_ERROR = "Não foi encontrado a carteira do beneficiário.";
+	
+	final static String PACIENTE_INTERCAMBIO_ERROR = "Não foi possível inserir, pois é Paciente Intercâmbio.";
 }

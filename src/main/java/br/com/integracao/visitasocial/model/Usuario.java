@@ -26,4 +26,9 @@ public class Usuario implements Serializable {
 	public void setCodigoUsuario(String codigoUsuario) {
 		this.codigoUsuario = codigoUsuario;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [codigoUsuario=" + codigoUsuario + "]";
+	}
 }

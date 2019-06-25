@@ -2,8 +2,6 @@ package br.com.integracao.visitasocial.factory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -19,15 +17,18 @@ public class ConnectionFactory
 	
 	private String hostDb;
 	
+	private String serviceDb;
+	
 	private String portDb;
 	
 	private String userDb;
 	
 	private String passwordDb;
 	
-	public ConnectionFactory(String hostDb, String portDb, String userDb, String passwordDb) 
+	public ConnectionFactory(String hostDb, String serviceDb, String portDb, String userDb, String passwordDb) 
 	{
 		this.userDb = userDb;
+		this.serviceDb = serviceDb;
 		this.portDb = portDb;
 		this.passwordDb = passwordDb;
 		this.hostDb = hostDb;
@@ -40,7 +41,7 @@ public class ConnectionFactory
 			String tsNames = "jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = "
 					       + "(PROTOCOL = TCP)(HOST = " + getHostDb() + ")(PORT = " + getPortDb() + ")) "
 						   + "(LOAD_BALANCE = yes) "
-						   + "(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = mv) "
+						   + "(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = " + getServiceDb() + ") "
 						   + "(FAILOVER_MODE =(TYPE = SELECT)(METHOD = BASIC)(RETRIES = 180)(DELAY = 5))))";
 			
 			Class.forName(DRIVER);
@@ -60,32 +61,6 @@ public class ConnectionFactory
 	    }
 	}
 	
-	public void closeConnection(Connection conexao, PreparedStatement pstmt, ResultSet rs) 
-	{
-		try 
-		{
-			if (conexao != null) 
-			{
-				conexao.close();
-			}
-			
-			if (pstmt != null) 
-			{
-				pstmt.close();
-			}
-			
-			if (rs != null) 
-			{
-				rs.close();
-			}
-		} 
-		catch (Exception e)
-		{
-			logger.error(BaseConstants.CLOSE_CONNECTION_ERROR);
-			throw new AppException(BaseConstants.CLOSE_CONNECTION_ERROR);
-		}
-	}
-	
 	public String getHostDb() {
 		return hostDb;
 	}
@@ -94,6 +69,14 @@ public class ConnectionFactory
 		this.hostDb = hostDb;
 	}
 	
+	public String getServiceDb() {
+		return serviceDb;
+	}
+
+	public void setServiceDb(String serviceDb) {
+		this.serviceDb = serviceDb;
+	}
+
 	public String getPortDb() {
 		return portDb;
 	}

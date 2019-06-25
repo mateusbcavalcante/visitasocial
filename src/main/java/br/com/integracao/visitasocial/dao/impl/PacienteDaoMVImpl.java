@@ -1,6 +1,5 @@
 package br.com.integracao.visitasocial.dao.impl;
 
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,15 +20,18 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 	
 	private String hostDb;
 	
+	private String serviceDb;
+	
 	private String portDb;
 	
 	private String userDb;
 	
 	private String passwordDb;
 	
-	public PacienteDaoMVImpl(String hostDb, String portDb, String userDb, String passwordDb)
+	public PacienteDaoMVImpl(String hostDb, String serviceDb, String portDb, String userDb, String passwordDb)
 	{
 		this.hostDb = hostDb;
+		this.serviceDb = serviceDb;
 		this.portDb = portDb;
 		this.userDb = userDb;
 		this.passwordDb = passwordDb;
@@ -38,23 +40,17 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 	@Override
 	public List<PacienteMV> obterDados() throws SQLException
 	{
-		Connection conn = null;
-		ConnectionFactory instanceConn = new ConnectionFactory(getHostDb(), getPortDb(), getUserDb(), getPasswordDb());
-		PreparedStatement pst = null;
-		ResultSet rs = null;
+		ConnectionFactory instanceConn = new ConnectionFactory(getHostDb(), getServiceDb(), getPortDb(), getUserDb(), getPasswordDb());
 		List<PacienteMV> listVisitaSocial = new ArrayList<>();
 		
-		try
+		try (Connection conn = instanceConn.createConnection();
+			 PreparedStatement pst = conn.prepareStatement(buildSqlSelect());
+			 ResultSet rs = pst.executeQuery())
 		{
-			conn = instanceConn.createConnection();
-			pst = conn.prepareStatement(buildSqlSelect());
-			rs = pst.executeQuery();
-			
 			while (rs.next())
 			{
 				listVisitaSocial.add(resultSetToObject(rs));
 			}
-			
 			return listVisitaSocial;
 		}
 		catch (SQLException ex)
@@ -62,60 +58,63 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 			logger.error(ex.getMessage());
 			throw new AppException(ex.getMessage());
 		}
-		finally
-		{
-			instanceConn.closeConnection(conn, pst, rs);
-		}
 	}
 	
 	private PacienteMV resultSetToObject(ResultSet rs) throws SQLException
 	{
 		int i = 1;
-		PacienteMV visitaSocial = new PacienteMV();
+		PacienteMV pacienteMV = new PacienteMV();
 		
-		visitaSocial.setCdUnidInt(new BigInteger(rs.getString(i++)));
-		visitaSocial.setDsUnidInt(rs.getString(i++));
-		visitaSocial.setCodLeito(new Integer(rs.getString(i++)));
-		visitaSocial.setDsLeito(rs.getString(i++));
-		visitaSocial.setCdAtendimento(new BigInteger(rs.getString(i++)));
-		visitaSocial.setCodPrestador(new BigInteger(rs.getString(i++)));
-		visitaSocial.setNmPaciente(rs.getString(i++));
-		visitaSocial.setDtAltaMedica(rs.getDate(i++));
-		visitaSocial.setHrAltaMedica(rs.getString(i++));
-		visitaSocial.setDtAltaHospitalar(rs.getDate(i++));
-		visitaSocial.setHrAltaHospitalar(rs.getString(i++));
-		visitaSocial.setDtPreMed(rs.getDate(i++));
+		pacienteMV.setDtCadastro(rs.getString(i++));
+		pacienteMV.setNrCarteira(rs.getString(i++));
+		pacienteMV.setNmPaciente(rs.getString(i++));
+		pacienteMV.setDtNascimento(rs.getDate(i++));
+		pacienteMV.setNrFone(rs.getString(i++));
+		pacienteMV.setCdConPlan(rs.getString(i++));
+		pacienteMV.setCdPrestador(new Integer(rs.getString(i++)));
+		pacienteMV.setCdLeito(new Integer(rs.getString(i++)));
+		pacienteMV.setDtAtendimento(rs.getString(i++));
+		pacienteMV.setDsCodigoConselho(new Integer(rs.getString(i++)));
+		pacienteMV.setCdUf(rs.getString(i++));
+		pacienteMV.setCdMotAlt(new Integer(rs.getString(i++)));
+		pacienteMV.setDtAlta(rs.getString(i++));
 		
-		return visitaSocial;
+		return pacienteMV;
 	}
 
 	private String buildSqlSelect()
 	{
-		String sql = " SELECT UNID_INT.CD_UNID_INT, "
-				   + "        UNID_INT.DS_UNID_INT, "
+		String sql = " SELECT PACIENTE.DT_CADASTRO, "
+				   + "        ATENDIME.NR_CARTEIRA, "
+				   + "        PACIENTE.NM_PACIENTE, "
+				   + "        PACIENTE.DT_NASCIMENTO, " 
+				   + "        PACIENTE.NR_FONE, "
+				   + "        ATENDIME.CD_CON_PLA, "
+				   + "        PRESTADOR.CD_PRESTADOR, " 
 				   + "        LEITO.CD_LEITO, "
-				   + "        LEITO.DS_LEITO, "
-				   + "		  ATENDIME.CD_ATENDIMENTO, "
-				   + "        ATENDIME.CD_PRESTADOR, "
-				   + "		  PACIENTE.NM_PACIENTE, "
-				   + "		  TRUNC(ATENDIME.DT_ALTA_MEDICA) DT_ALTA_MEDICA, "
-				   + "		  TO_CHAR(ATENDIME.HR_ALTA_MEDICA, 'HH24:MI:SS') HR_ALTA_MEDICA, " 
-				   + "		  TRUNC(ATENDIME.DT_ALTA) DT_ALTA_HOSPITALAR, "
-				   + "		  TO_CHAR(ATENDIME.HR_ALTA, 'HH24:MI:SS') HR_ALTA_HOSPITALAR, " 
-				   + "		  P.DT_PRE_MED "
+				   + "        ATENDIME.DT_ATENDIMENTO, " 
+				   + "        PRESTADOR.CD_PRESTADOR, " 
+				   + "        PRESTADOR.DS_CODIGO_CONSELHO, " 
+				   + "        CONSELHO.CD_UF, "
+				   + "        ATENDIME.CD_MOT_ALT, "
+				   + "        ATENDIME.DT_ALTA "
 				   + " FROM DBAMV.UNID_INT, "
 				   + "      DBAMV.LEITO, "
-				   + "      DBAMV.ATENDIME,"
-				   + "      DBAMV.PACIENTE, "
-				   + "      DBAMV.PRE_MED P " 
-				   + " WHERE LEITO.CD_UNID_INT = UNID_INT.CD_UNID_INT " 
+				   + "      DBAMV.ATENDIME, "
+				   + "      DBAMV.PACIENTE,  "
+				   + "      DBAMV.PRE_MED P, "
+				   + "      DBAMV.PRESTADOR, "
+				   + "      DBAMV.CONSELHO " 
+				   + " WHERE LEITO.CD_UNID_INT = UNID_INT.CD_UNID_INT "
 				   + "   AND LEITO.CD_LEITO = ATENDIME.CD_LEITO "
-				   + "   AND ATENDIME.CD_PACIENTE = PACIENTE.CD_PACIENTE " 
+				   + "   AND ATENDIME.CD_PACIENTE = PACIENTE.CD_PACIENTE "
 				   + "   AND ATENDIME.TP_ATENDIMENTO = 'I' "
 				   + "   AND ATENDIME.CD_MULTI_EMPRESA = 1 "
-				   + "   AND P.CD_ATENDIMENTO = ATENDIME.CD_ATENDIMENTO " 
+				   + "   AND P.CD_ATENDIMENTO = ATENDIME.CD_ATENDIMENTO "
+				   + "   AND ATENDIME.CD_PRESTADOR = PRESTADOR.CD_PRESTADOR "
+				   + "   AND PRESTADOR.CD_CONSELHO = CONSELHO.CD_CONSELHO "
 				   + "   AND ATENDIME.DT_ALTA_MEDICA IS NOT NULL "
-				   + "   AND P.DT_PRE_MED BETWEEN SYSDATE-1 AND SYSDATE";
+				   + "   AND p.DT_PRE_MED BETWEEN SYSDATE-1 AND SYSDATE ";
 		
 		return sql;
 	}
@@ -128,6 +127,14 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 		this.hostDb = hostDb;
 	}
 	
+	public String getServiceDb() {
+		return serviceDb;
+	}
+
+	public void setServiceDb(String serviceDb) {
+		this.serviceDb = serviceDb;
+	}
+
 	public String getPortDb() {
 		return portDb;
 	}

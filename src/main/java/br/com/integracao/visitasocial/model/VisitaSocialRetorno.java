@@ -16,10 +16,12 @@ public class VisitaSocialRetorno implements Serializable {
 	private Usuario usuario;
 
 	private UnimedProducao unimedProducao;
+	
+	private TipoSaida motivoAlta;
 
 	private Integer unimedCarteira;
 
-	private Integer codCarteira;
+	private Long codCarteira;
 
 	private String dvCarteira;
 
@@ -36,6 +38,8 @@ public class VisitaSocialRetorno implements Serializable {
 	private Integer leito;
 
 	private String dataInternacao;
+	
+	private String dataAlta;
 
 	private Integer crm;
 
@@ -48,6 +52,42 @@ public class VisitaSocialRetorno implements Serializable {
 	private Integer codContrato;
 
 	private String codDependencia;
+	
+	public VisitaSocialRetorno()
+	{
+		
+	}
+
+	public VisitaSocialRetorno(Integer idVisitaSocial, String dataCadastro, Usuario usuario,
+								UnimedProducao unimedProducao, TipoSaida motivoAlta, Integer unimedCarteira, Long codCarteira, String dvCarteira,
+								String paciente, Integer idade, String telefone, String codPlano, Prestador prestador, Integer leito,
+								String dataInternacao, String dataAlta, Integer crm, String adesaoMedPrev, String perfilMedPrev, UfCrm ufCrm,
+								Integer codContrato, String codDependencia) 
+	{
+		super();
+		this.idVisitaSocial = idVisitaSocial;
+		this.dataCadastro = dataCadastro;
+		this.usuario = usuario;
+		this.unimedProducao = unimedProducao;
+		this.motivoAlta = motivoAlta;
+		this.unimedCarteira = unimedCarteira;
+		this.codCarteira = codCarteira;
+		this.dvCarteira = dvCarteira;
+		this.paciente = paciente;
+		this.idade = idade;
+		this.telefone = telefone;
+		this.codPlano = codPlano;
+		this.prestador = prestador;
+		this.leito = leito;
+		this.dataInternacao = dataInternacao;
+		this.dataAlta = dataAlta;
+		this.crm = crm;
+		this.adesaoMedPrev = adesaoMedPrev;
+		this.perfilMedPrev = perfilMedPrev;
+		this.ufCrm = ufCrm;
+		this.codContrato = codContrato;
+		this.codDependencia = codDependencia;
+	}
 
 	public Integer getIdVisitaSocial() {
 		return idVisitaSocial;
@@ -81,6 +121,14 @@ public class VisitaSocialRetorno implements Serializable {
 		this.unimedProducao = unimedProducao;
 	}
 
+	public TipoSaida getMotivoAlta() {
+		return motivoAlta;
+	}
+
+	public void setMotivoAlta(TipoSaida motivoAlta) {
+		this.motivoAlta = motivoAlta;
+	}
+
 	public Integer getUnimedCarteira() {
 		return unimedCarteira;
 	}
@@ -89,11 +137,11 @@ public class VisitaSocialRetorno implements Serializable {
 		this.unimedCarteira = unimedCarteira;
 	}
 
-	public Integer getCodCarteira() {
+	public Long getCodCarteira() {
 		return codCarteira;
 	}
 
-	public void setCodCarteira(Integer codCarteira) {
+	public void setCodCarteira(Long codCarteira) {
 		this.codCarteira = codCarteira;
 	}
 
@@ -160,6 +208,14 @@ public class VisitaSocialRetorno implements Serializable {
 	public void setDataInternacao(String dataInternacao) {
 		this.dataInternacao = dataInternacao;
 	}
+	
+	public String getDataAlta() {
+		return dataAlta;
+	}
+
+	public void setDataAlta(String dataAlta) {
+		this.dataAlta = dataAlta;
+	}
 
 	public Integer getCrm() {
 		return crm;
@@ -207,5 +263,16 @@ public class VisitaSocialRetorno implements Serializable {
 
 	public void setCodDependencia(String codDependencia) {
 		this.codDependencia = codDependencia;
+	}
+
+	@Override
+	public String toString() {
+		return "VisitaSocialRetorno [idVisitaSocial=" + idVisitaSocial + ", dataCadastro=" + dataCadastro + ", usuario="
+				+ usuario + ", unimedProducao=" + unimedProducao + ", unimedCarteira=" + unimedCarteira
+				+ ", codCarteira=" + codCarteira + ", dvCarteira=" + dvCarteira + ", paciente=" + paciente + ", idade="
+				+ idade + ", telefone=" + telefone + ", codPlano=" + codPlano + ", prestador=" + prestador + ", leito="
+				+ leito + ", dataInternacao=" + dataInternacao + ", crm=" + crm + ", adesaoMedPrev=" + adesaoMedPrev
+				+ ", perfilMedPrev=" + perfilMedPrev + ", ufCrm=" + ufCrm + ", codContrato=" + codContrato
+				+ ", codDependencia=" + codDependencia + "]";
 	}
 }

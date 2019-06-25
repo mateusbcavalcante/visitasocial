@@ -17,11 +17,23 @@ public class ProcessarIntegracao
 	
 	private static String hostDb;
 	
+	private static String serviceDb;
+	
 	private static String portDb;
 	
 	private static String userDb;
 	
 	private static String passwordDb;
+	
+	private static String hostSabiusDb;
+	
+	private static String serviceSabiusDb;
+	
+	private static String portSabiusDb;
+	
+	private static String userSabiusDb;
+	
+	private static String passwordSabiusDb;
 	
 	public static void main(String args[]) throws Exception
 	{
@@ -44,15 +56,35 @@ public class ProcessarIntegracao
 		FileUtils.apagarConteudo();
 	}
 	
-	private static void initVariables() 
+	private static void initVariables()
 	{
+//		System.setProperty("uri", "http://tf1jboss.unimedfortaleza.com.br:8081/sabius-servicos-web/rest-servicos/visitaSocial/incluir");
+//		System.setProperty("user", "SALESFORCE");
+//		System.setProperty("password", "2al3F0RC3");
+//		System.setProperty("hostdb", "racmv.unimedfortaleza.com.br");
+//		System.setProperty("servicedb", "mv");
+//		System.setProperty("portdb", "1528");
+//		System.setProperty("userdb", "reader");
+//		System.setProperty("passworddb", "reader");
+//		System.setProperty("hostsabiusdb", "racsab.unimedfortaleza.com.br");
+//		System.setProperty("servicesabiusdb", "sab");
+//		System.setProperty("portsabiusdb", "1522");
+//		System.setProperty("usersabiusdb", "reader");
+//		System.setProperty("passwordsabiusdb", "reader");
+		
 		uri = System.getProperty("uri");
 		user = System.getProperty("user");
 		password = System.getProperty("password");
 		hostDb = System.getProperty("hostdb");
+		serviceDb = System.getProperty("servicedb");
 		portDb = System.getProperty("portdb");
 		userDb = System.getProperty("userdb");
 		passwordDb = System.getProperty("passworddb");
+		hostSabiusDb = System.getProperty("hostsabiusdb");
+		serviceSabiusDb = System.getProperty("servicesabiusdb");
+		portSabiusDb = System.getProperty("portsabiusdb");
+		userSabiusDb = System.getProperty("usersabiusdb");
+		passwordSabiusDb = System.getProperty("passwordsabiusdb");
 	}
 	
 	private static Boolean validation() 
@@ -85,6 +117,13 @@ public class ProcessarIntegracao
 			return false;
 		}
 		
+		if (serviceDb == null 
+				|| serviceDb.equalsIgnoreCase(""))
+		{
+			logger.info("É necessário informar o campo: -Dservicedb");
+			return false;
+		}
+		
 		if (portDb == null 
 				|| portDb.equalsIgnoreCase(""))
 		{
@@ -106,11 +145,46 @@ public class ProcessarIntegracao
 			return false;
 		}
 		
+		if (hostSabiusDb == null 
+				|| hostSabiusDb.equalsIgnoreCase(""))
+		{
+			logger.info("É necessário informar o campo: -Dhostsabiusdb");
+			return false;
+		}
+		
+		if (serviceSabiusDb == null 
+				|| serviceSabiusDb.equalsIgnoreCase(""))
+		{
+			logger.info("É necessário informar o campo: -Dservicesabiusdb");
+			return false;
+		}
+		
+		if (portSabiusDb == null 
+				|| portSabiusDb.equalsIgnoreCase(""))
+		{
+			logger.info("É necessário informar o campo: -Dportsabiusdb");
+			return false;
+		}
+		
+		if (userSabiusDb == null 
+				|| userSabiusDb.equalsIgnoreCase(""))
+		{
+			logger.info("É necessário informar o campo: -Dusersabiusdb");
+			return false;
+		}
+		
+		if (passwordSabiusDb == null 
+				|| passwordSabiusDb.equalsIgnoreCase(""))
+		{
+			logger.info("É necessário informar o campo: -Dpasswordsabiusdb");
+			return false;
+		}
+		
 		return true;
 	}
 	
 	private static void process() throws Exception 
 	{
-		new IntegracaoService(uri, user, password, hostDb, portDb, userDb, passwordDb).processar();
+		new IntegracaoService(uri, user, password, hostDb, serviceDb, portDb, userDb, passwordDb, hostSabiusDb, serviceSabiusDb, portSabiusDb, userSabiusDb, passwordSabiusDb).processar();
 	}
 }

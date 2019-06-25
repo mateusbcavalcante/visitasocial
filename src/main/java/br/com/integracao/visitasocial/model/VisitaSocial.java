@@ -1,7 +1,6 @@
 package br.com.integracao.visitasocial.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,58 +10,65 @@ public class VisitaSocial implements Serializable {
 	private static final long serialVersionUID = -3389333209713569083L;
 
 	private Integer idVisitaSocial;
-	
-	private Date dataCadastro;
-	
+
+	private String dataCadastro;
+
 	private Usuario usuario;
 
 	private UnimedProducao unimedProducao;
 	
+	private TipoSaida motivoAlta;
+
 	private Integer unimedCarteira;
-	
-	private Integer codCarteira;
-	
+
+	private Long codCarteira;
+
 	private String dvCarteira;
-	
+
 	private String paciente;
-	
+
 	private Integer idade;
-	
+
 	private String telefone;
-	
+
 	private String codPlano;
-	
+
 	private Prestador prestador;
-	
+
 	private Integer leito;
+
+	private String dataInternacao;
 	
-	private Date dataInternacao;
-	
+	private String dataAlta;
+
 	private Integer crm;
-	
+
 	private String adesaoMedPrev;
-	
+
 	private String perfilMedPrev;
-	
+
 	private String ufCrm;
-	
+
 	private Integer codContrato;
-	
+
 	private String codDependencia;
-	
-	public VisitaSocial() {
-		
+
+	public VisitaSocial() 
+	{
+
 	}
-	
-	public VisitaSocial(Date dataCadastro, Usuario usuario, UnimedProducao unimedProducao, Integer unimedCarteira,
-						Integer codCarteira, String dvCarteira, String paciente, Integer idade, String telefone, String codPlano,
-						Prestador prestador, Integer leito, Date dataInternacao, Integer crm, String adesaoMedPrev,
-						String perfilMedPrev, String ufCrm, Integer codContrato, String codDependencia) 
+
+	public VisitaSocial(Integer idVisitaSocial, String dataCadastro, Usuario usuario, UnimedProducao unimedProducao, TipoSaida motivoAlta,
+			Integer unimedCarteira, Long codCarteira, String dvCarteira, String paciente, Integer idade,
+			String telefone, String codPlano, Prestador prestador, Integer leito, String dataInternacao, String dataAlta, Integer crm,
+			String adesaoMedPrev, String perfilMedPrev, String ufCrm, Integer codContrato, String codDependencia) 
 	{
 		super();
+		this.idVisitaSocial = idVisitaSocial;
 		this.dataCadastro = dataCadastro;
 		this.usuario = usuario;
 		this.unimedProducao = unimedProducao;
+		this.motivoAlta = motivoAlta;
 		this.unimedCarteira = unimedCarteira;
 		this.codCarteira = codCarteira;
 		this.dvCarteira = dvCarteira;
@@ -73,6 +79,7 @@ public class VisitaSocial implements Serializable {
 		this.prestador = prestador;
 		this.leito = leito;
 		this.dataInternacao = dataInternacao;
+		this.dataAlta = dataAlta;
 		this.crm = crm;
 		this.adesaoMedPrev = adesaoMedPrev;
 		this.perfilMedPrev = perfilMedPrev;
@@ -80,7 +87,7 @@ public class VisitaSocial implements Serializable {
 		this.codContrato = codContrato;
 		this.codDependencia = codDependencia;
 	}
-	
+
 	public Integer getIdVisitaSocial() {
 		return idVisitaSocial;
 	}
@@ -89,11 +96,11 @@ public class VisitaSocial implements Serializable {
 		this.idVisitaSocial = idVisitaSocial;
 	}
 
-	public Date getDataCadastro() {
+	public String getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(Date dataCadastro) {
+	public void setDataCadastro(String dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
@@ -112,6 +119,14 @@ public class VisitaSocial implements Serializable {
 	public void setUnimedProducao(UnimedProducao unimedProducao) {
 		this.unimedProducao = unimedProducao;
 	}
+	
+	public TipoSaida getMotivoAlta() {
+		return motivoAlta;
+	}
+
+	public void setMotivoAlta(TipoSaida motivoAlta) {
+		this.motivoAlta = motivoAlta;
+	}
 
 	public Integer getUnimedCarteira() {
 		return unimedCarteira;
@@ -121,11 +136,11 @@ public class VisitaSocial implements Serializable {
 		this.unimedCarteira = unimedCarteira;
 	}
 
-	public Integer getCodCarteira() {
+	public Long getCodCarteira() {
 		return codCarteira;
 	}
 
-	public void setCodCarteira(Integer codCarteira) {
+	public void setCodCarteira(Long codCarteira) {
 		this.codCarteira = codCarteira;
 	}
 
@@ -185,12 +200,20 @@ public class VisitaSocial implements Serializable {
 		this.leito = leito;
 	}
 
-	public Date getDataInternacao() {
+	public String getDataInternacao() {
 		return dataInternacao;
 	}
 
-	public void setDataInternacao(Date dataInternacao) {
+	public void setDataInternacao(String dataInternacao) {
 		this.dataInternacao = dataInternacao;
+	}
+	
+	public String getDataAlta() {
+		return dataAlta;
+	}
+
+	public void setDataAlta(String dataAlta) {
+		this.dataAlta = dataAlta;
 	}
 
 	public Integer getCrm() {
@@ -239,5 +262,16 @@ public class VisitaSocial implements Serializable {
 
 	public void setCodDependencia(String codDependencia) {
 		this.codDependencia = codDependencia;
+	}
+
+	@Override
+	public String toString() {
+		return "VisitaSocial [idVisitaSocial=" + idVisitaSocial + ", dataCadastro=" + dataCadastro + ", usuario="
+				+ usuario + ", unimedProducao=" + unimedProducao + ", unimedCarteira=" + unimedCarteira
+				+ ", codCarteira=" + codCarteira + ", dvCarteira=" + dvCarteira + ", paciente=" + paciente + ", idade="
+				+ idade + ", telefone=" + telefone + ", codPlano=" + codPlano + ", prestador=" + prestador + ", leito="
+				+ leito + ", dataInternacao=" + dataInternacao + ", crm=" + crm + ", adesaoMedPrev=" + adesaoMedPrev
+				+ ", perfilMedPrev=" + perfilMedPrev + ", ufCrm=" + ufCrm + ", codContrato=" + codContrato
+				+ ", codDependencia=" + codDependencia + "]";
 	}
 }

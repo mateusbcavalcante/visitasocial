@@ -1,7 +1,6 @@
 package br.com.integracao.visitasocial.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.sql.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,60 +10,46 @@ public class PacienteMV implements Serializable {
 
 	private static final long serialVersionUID = -3389333209713569083L;
 
-	private BigInteger cdUnidInt;
+	private String dtCadastro;
 
-	private String dsUnidInt;
-
-	private Integer codLeito;
-
-	private String dsLeito;
-
-	private BigInteger cdAtendimento;
-
-	private BigInteger codPrestador;
+	private String nrCarteira;
 
 	private String nmPaciente;
 
-	private Date dtAltaMedica;
+	private Date dtNascimento;
 
-	private String hrAltaMedica;
+	private String nrFone;
 
-	private Date dtAltaHospitalar;
+	private String cdConPlan;
 
-	private String hrAltaHospitalar;
+	private Integer cdPrestador;
 
-	private Date dtPreMed;
+	private Integer cdLeito;
 
-	public BigInteger getCdUnidInt() {
-		return cdUnidInt;
+	private String dtAtendimento;
+	
+	private String dtAlta;
+
+	private Integer dsCodigoConselho;
+
+	private String cdUf;
+	
+	private Integer cdMotAlt;
+
+	public String getDtCadastro() {
+		return dtCadastro;
 	}
 
-	public void setCdUnidInt(BigInteger cdUnidInt) {
-		this.cdUnidInt = cdUnidInt;
+	public void setDtCadastro(String dtCadastro) {
+		this.dtCadastro = dtCadastro;
 	}
 
-	public String getDsUnidInt() {
-		return dsUnidInt;
+	public String getNrCarteira() {
+		return nrCarteira;
 	}
 
-	public void setDsUnidInt(String dsUnidInt) {
-		this.dsUnidInt = dsUnidInt;
-	}
-
-	public String getDsLeito() {
-		return dsLeito;
-	}
-
-	public void setDsLeito(String dsLeito) {
-		this.dsLeito = dsLeito;
-	}
-
-	public BigInteger getCdAtendimento() {
-		return cdAtendimento;
-	}
-
-	public void setCdAtendimento(BigInteger cdAtendimento) {
-		this.cdAtendimento = cdAtendimento;
+	public void setNrCarteira(String nrCarteira) {
+		this.nrCarteira = nrCarteira;
 	}
 
 	public String getNmPaciente() {
@@ -75,68 +60,92 @@ public class PacienteMV implements Serializable {
 		this.nmPaciente = nmPaciente;
 	}
 
-	public Date getDtAltaMedica() {
-		return dtAltaMedica;
+	public Date getDtNascimento() {
+		return dtNascimento;
 	}
 
-	public void setDtAltaMedica(Date dtAltaMedica) {
-		this.dtAltaMedica = dtAltaMedica;
+	public void setDtNascimento(Date dtNascimento) {
+		this.dtNascimento = dtNascimento;
 	}
 
-	public String getHrAltaMedica() {
-		return hrAltaMedica;
+	public String getNrFone() {
+		return nrFone;
 	}
 
-	public void setHrAltaMedica(String hrAltaMedica) {
-		this.hrAltaMedica = hrAltaMedica;
+	public void setNrFone(String nrFone) {
+		this.nrFone = nrFone;
 	}
 
-	public Date getDtAltaHospitalar() {
-		return dtAltaHospitalar;
+	public String getCdConPlan() {
+		return cdConPlan;
 	}
 
-	public void setDtAltaHospitalar(Date dtAltaHospitalar) {
-		this.dtAltaHospitalar = dtAltaHospitalar;
+	public void setCdConPlan(String cdConPlan) {
+		this.cdConPlan = cdConPlan;
 	}
 
-	public String getHrAltaHospitalar() {
-		return hrAltaHospitalar;
+	public Integer getCdPrestador() {
+		return cdPrestador;
 	}
 
-	public void setHrAltaHospitalar(String hrAltaHospitalar) {
-		this.hrAltaHospitalar = hrAltaHospitalar;
+	public void setCdPrestador(Integer cdPrestador) {
+		this.cdPrestador = cdPrestador;
 	}
 
-	public Date getDtPreMed() {
-		return dtPreMed;
+	public Integer getCdLeito() {
+		return cdLeito;
 	}
 
-	public void setDtPreMed(Date dtPreMed) {
-		this.dtPreMed = dtPreMed;
+	public void setCdLeito(Integer cdLeito) {
+		this.cdLeito = cdLeito;
 	}
 
-	public Integer getCodLeito() {
-		return codLeito;
+	public String getDtAtendimento() {
+		return dtAtendimento;
 	}
 
-	public void setCodLeito(Integer codLeito) {
-		this.codLeito = codLeito;
+	public void setDtAtendimento(String dtAtendimento) {
+		this.dtAtendimento = dtAtendimento;
 	}
 
-	public BigInteger getCodPrestador() {
-		return codPrestador;
+	public String getDtAlta() {
+		return dtAlta;
 	}
 
-	public void setCodPrestador(BigInteger codPrestador) {
-		this.codPrestador = codPrestador;
+	public void setDtAlta(String dtAlta) {
+		this.dtAlta = dtAlta;
+	}
+
+	public Integer getDsCodigoConselho() {
+		return dsCodigoConselho;
+	}
+
+	public void setDsCodigoConselho(Integer dsCodigoConselho) {
+		this.dsCodigoConselho = dsCodigoConselho;
+	}
+
+	public String getCdUf() {
+		return cdUf;
+	}
+
+	public void setCdUf(String cdUf) {
+		this.cdUf = cdUf;
+	}
+	
+	public Integer getCdMotAlt() {
+		return cdMotAlt;
+	}
+
+	public void setCdMotAlt(Integer cdMotAlt) {
+		this.cdMotAlt = cdMotAlt;
 	}
 
 	@Override
 	public String toString() {
-		return "PacienteMV [cdUnidInt=" + cdUnidInt + ", dsUnidInt=" + dsUnidInt + ", codLeito=" + codLeito
-				+ ", dsLeito=" + dsLeito + ", cdAtendimento=" + cdAtendimento + ", codPrestador=" + codPrestador
-				+ ", nmPaciente=" + nmPaciente + ", dtAltaMedica=" + dtAltaMedica + ", hrAltaMedica=" + hrAltaMedica
-				+ ", dtAltaHospitalar=" + dtAltaHospitalar + ", hrAltaHospitalar=" + hrAltaHospitalar + ", dtPreMed="
-				+ dtPreMed + "]";
+		return "PacienteMV [dtCadastro=" + dtCadastro + ", nrCarteira=" + nrCarteira + ", nmPaciente=" + nmPaciente
+				+ ", dtNascimento=" + dtNascimento + ", nrFone=" + nrFone + ", cdConPlan=" + cdConPlan
+				+ ", cdPrestador=" + cdPrestador + ", cdLeito=" + cdLeito + ", dtAtendimento=" + dtAtendimento
+				+ ", dtAlta=" + dtAlta + ", dsCodigoConselho=" + dsCodigoConselho + ", cdUf=" + cdUf + ", cdMotAlt="
+				+ cdMotAlt + "]";
 	}
 }
