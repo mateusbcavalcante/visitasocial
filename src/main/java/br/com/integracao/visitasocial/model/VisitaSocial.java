@@ -267,11 +267,11 @@ public class VisitaSocial implements Serializable {
 	@Override
 	public String toString() {
 		return "VisitaSocial [idVisitaSocial=" + idVisitaSocial + ", dataCadastro=" + dataCadastro + ", usuario="
-				+ usuario + ", unimedProducao=" + unimedProducao + ", unimedCarteira=" + unimedCarteira
-				+ ", codCarteira=" + codCarteira + ", dvCarteira=" + dvCarteira + ", paciente=" + paciente + ", idade="
-				+ idade + ", telefone=" + telefone + ", codPlano=" + codPlano + ", prestador=" + prestador + ", leito="
-				+ leito + ", dataInternacao=" + dataInternacao + ", crm=" + crm + ", adesaoMedPrev=" + adesaoMedPrev
-				+ ", perfilMedPrev=" + perfilMedPrev + ", ufCrm=" + ufCrm + ", codContrato=" + codContrato
-				+ ", codDependencia=" + codDependencia + "]";
+				+ usuario + ", unimedProducao=" + unimedProducao + ", motivoAlta=" + motivoAlta + ", unimedCarteira="
+				+ unimedCarteira + ", codCarteira=" + codCarteira + ", dvCarteira=" + dvCarteira + ", paciente="
+				+ paciente + ", idade=" + idade + ", telefone=" + telefone + ", codPlano=" + codPlano + ", prestador="
+				+ prestador + ", leito=" + leito + ", dataInternacao=" + dataInternacao + ", dataAlta=" + dataAlta
+				+ ", crm=" + crm + ", adesaoMedPrev=" + adesaoMedPrev + ", perfilMedPrev=" + perfilMedPrev + ", ufCrm="
+				+ ufCrm + ", codContrato=" + codContrato + ", codDependencia=" + codDependencia + "]";
 	}
 }

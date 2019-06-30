@@ -6,8 +6,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import br.com.integracao.visitasocial.dao.impl.PacienteDaoMVImpl;
+import br.com.integracao.visitasocial.dao.impl.RelatorioDaoImpl;
 import br.com.integracao.visitasocial.dao.impl.VisitaSocialDaoImpl;
-import br.com.integracao.visitasocial.model.PacienteMV;
+import br.com.integracao.visitasocial.model.Paciente;
 import br.com.integracao.visitasocial.response.VisitaSocialResponse;
 
 public class IntegracaoService
@@ -60,14 +61,15 @@ public class IntegracaoService
 	public List<VisitaSocialResponse> processar() throws Exception
 	{
 		List<VisitaSocialResponse> listVisitaSocialResponse = new ArrayList<>();
-		List<PacienteMV> listPacienteMV = new PacienteDaoMVImpl(getHostDb(), getServiceDb(), getPortDb(), getUserDb(), getPasswordDb()).obterDados();
+		List<Paciente> listPaciente = new PacienteDaoMVImpl(getHostDb(), getServiceDb(), getPortDb(), getUserDb(), getPasswordDb()).obterDados();
+//		listPaciente.addAll(new RelatorioDaoImpl(getHostSabiusDb(), getServiceSabiusDb(), getPortSabiusDb(), getUserSabiusDb(), getPasswordSabiusDb()).processarPacientes());
 		
-		if (listPacienteMV != null
-				&& listPacienteMV.size() > 0)
+		if (listPaciente != null
+				&& listPaciente.size() > 0)
 		{
-			for (PacienteMV pacienteMV : listPacienteMV)
+			for (Paciente paciente : listPaciente)
 			{
-				VisitaSocialResponse response = new VisitaSocialDaoImpl(getUri(), getUser(), getPassword(), getHostSabiusDb(), getServiceSabiusDb(), getPortSabiusDb(), getUserSabiusDb(), getPasswordSabiusDb()).inserir(pacienteMV);
+				VisitaSocialResponse response = new VisitaSocialDaoImpl(getUri(), getUser(), getPassword(), getHostSabiusDb(), getServiceSabiusDb(), getPortSabiusDb(), getUserSabiusDb(), getPasswordSabiusDb()).inserir(paciente);
 				addLoggerInfo(response);
 				listVisitaSocialResponse.add(response);
 			}

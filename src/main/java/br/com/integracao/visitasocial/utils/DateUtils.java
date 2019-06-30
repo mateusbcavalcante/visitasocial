@@ -2,6 +2,8 @@ package br.com.integracao.visitasocial.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -54,10 +56,16 @@ public class DateUtils
 	{
 		try
 		{
-			SimpleDateFormat formato1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
-		
-			return formato2.format(formato1.parse(dateStr));
+			if (dateStr != null
+					&& !dateStr.equalsIgnoreCase(""))
+			{
+				SimpleDateFormat formato1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat formato2 = new SimpleDateFormat("yyyy-MM-dd");
+			
+				return formato2.format(formato1.parse(dateStr));
+			}
+			
+			return null;
 		}
 		catch (ParseException ex)
 		{
@@ -70,5 +78,15 @@ public class DateUtils
 	{
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		return formato.format(date);
+	}
+	
+	public static String convertToLocalDateViaInstant(Date dateToConvert) 
+	{
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dateToConvert);
+	}
+	
+	public static String retornaDataUtil(Integer quantidadeDia)
+	{
+		return LocalDate.now().plusDays(quantidadeDia).format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 	}
 }

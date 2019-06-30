@@ -12,9 +12,9 @@ import org.apache.log4j.Logger;
 import br.com.integracao.visitasocial.dao.PacienteDaoMV;
 import br.com.integracao.visitasocial.exceptions.AppException;
 import br.com.integracao.visitasocial.factory.ConnectionFactory;
-import br.com.integracao.visitasocial.model.PacienteMV;
+import br.com.integracao.visitasocial.model.Paciente;
 
-public class PacienteDaoMVImpl implements PacienteDaoMV
+public class PacienteDaoMVImpl extends PacienteDaoImpl implements PacienteDaoMV
 {
 	static Logger logger = Logger.getLogger(PacienteDaoMVImpl.class);
 	
@@ -38,10 +38,10 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 	}
 
 	@Override
-	public List<PacienteMV> obterDados() throws SQLException
+	public List<Paciente> obterDados() throws Exception
 	{
 		ConnectionFactory instanceConn = new ConnectionFactory(getHostDb(), getServiceDb(), getPortDb(), getUserDb(), getPasswordDb());
-		List<PacienteMV> listVisitaSocial = new ArrayList<>();
+		List<Paciente> listVisitaSocial = new ArrayList<>();
 		
 		try (Connection conn = instanceConn.createConnection();
 			 PreparedStatement pst = conn.prepareStatement(buildSqlSelect());
@@ -60,28 +60,6 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 		}
 	}
 	
-	private PacienteMV resultSetToObject(ResultSet rs) throws SQLException
-	{
-		int i = 1;
-		PacienteMV pacienteMV = new PacienteMV();
-		
-		pacienteMV.setDtCadastro(rs.getString(i++));
-		pacienteMV.setNrCarteira(rs.getString(i++));
-		pacienteMV.setNmPaciente(rs.getString(i++));
-		pacienteMV.setDtNascimento(rs.getDate(i++));
-		pacienteMV.setNrFone(rs.getString(i++));
-		pacienteMV.setCdConPlan(rs.getString(i++));
-		pacienteMV.setCdPrestador(new Integer(rs.getString(i++)));
-		pacienteMV.setCdLeito(new Integer(rs.getString(i++)));
-		pacienteMV.setDtAtendimento(rs.getString(i++));
-		pacienteMV.setDsCodigoConselho(new Integer(rs.getString(i++)));
-		pacienteMV.setCdUf(rs.getString(i++));
-		pacienteMV.setCdMotAlt(new Integer(rs.getString(i++)));
-		pacienteMV.setDtAlta(rs.getString(i++));
-		
-		return pacienteMV;
-	}
-
 	private String buildSqlSelect()
 	{
 		String sql = " SELECT PACIENTE.DT_CADASTRO, "
@@ -94,7 +72,6 @@ public class PacienteDaoMVImpl implements PacienteDaoMV
 				   + "        LEITO.CD_LEITO, "
 				   + "        ATENDIME.DT_ATENDIMENTO, " 
 				   + "        PRESTADOR.CD_PRESTADOR, " 
-				   + "        PRESTADOR.DS_CODIGO_CONSELHO, " 
 				   + "        CONSELHO.CD_UF, "
 				   + "        ATENDIME.CD_MOT_ALT, "
 				   + "        ATENDIME.DT_ALTA "

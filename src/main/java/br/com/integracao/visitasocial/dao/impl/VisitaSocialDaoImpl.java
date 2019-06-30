@@ -19,7 +19,7 @@ import br.com.integracao.visitasocial.factory.ConnectionFactory;
 import br.com.integracao.visitasocial.interceptor.BasicAuthInterceptor;
 import br.com.integracao.visitasocial.model.CarteiraBeneficiario;
 import br.com.integracao.visitasocial.model.IntegracaoVisitaSocial;
-import br.com.integracao.visitasocial.model.PacienteMV;
+import br.com.integracao.visitasocial.model.Paciente;
 import br.com.integracao.visitasocial.model.Prestador;
 import br.com.integracao.visitasocial.model.TipoSaida;
 import br.com.integracao.visitasocial.model.UfCrm;
@@ -66,7 +66,7 @@ public class VisitaSocialDaoImpl implements VisitaSocialDao
 	}
 	
 	@Override
-	public VisitaSocialResponse inserir(PacienteMV pacienteMV)
+	public VisitaSocialResponse inserir(Paciente pacienteMV)
 	{
 		VisitaSocialResponse visitaSocialResponse = new VisitaSocialResponse();
 		RestTemplate restTemplate = new RestTemplate();
@@ -106,7 +106,7 @@ public class VisitaSocialDaoImpl implements VisitaSocialDao
 				                       visitaSocial.getCodContrato(), visitaSocial.getCodDependencia());
 	}
 
-	private VisitaSocialRequest instanciarObjetoParaInserir(PacienteMV pacienteMV) 
+	private VisitaSocialRequest instanciarObjetoParaInserir(Paciente pacienteMV) 
 	{
 		Integer unimedCarteira = null;
 		Long codCarteira = null;
@@ -146,8 +146,13 @@ public class VisitaSocialDaoImpl implements VisitaSocialDao
 			visitaSocial.setAdesaoMedPrev("N");
 			visitaSocial.setPerfilMedPrev("N");
 			visitaSocial.setUfCrm(pacienteMV.getCdUf());
-			visitaSocial.setMotivoAlta(new TipoSaida(pacienteMV.getCdMotAlt()));
-			visitaSocial.setDataAlta(DateUtils.removerHoraByDateStr(pacienteMV.getDtAlta()));
+			
+			if (pacienteMV.getDtAlta() != null
+					&& !pacienteMV.getDtAlta().equalsIgnoreCase("")) 
+			{
+				visitaSocial.setMotivoAlta(new TipoSaida(IntegracaoUtils.getMapTipoSaida(pacienteMV.getCdMotAlt())));
+				visitaSocial.setDataAlta(DateUtils.removerHoraByDateStr(pacienteMV.getDtAlta()));
+			}
 			
 			if (carteiraBeneficiario != null)
 			{

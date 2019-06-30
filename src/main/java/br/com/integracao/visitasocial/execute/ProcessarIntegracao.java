@@ -58,19 +58,19 @@ public class ProcessarIntegracao
 	
 	private static void initVariables()
 	{
-//		System.setProperty("uri", "http://tf1jboss.unimedfortaleza.com.br:8081/sabius-servicos-web/rest-servicos/visitaSocial/incluir");
-//		System.setProperty("user", "SALESFORCE");
-//		System.setProperty("password", "2al3F0RC3");
-//		System.setProperty("hostdb", "racmv.unimedfortaleza.com.br");
-//		System.setProperty("servicedb", "mv");
-//		System.setProperty("portdb", "1528");
-//		System.setProperty("userdb", "reader");
-//		System.setProperty("passworddb", "reader");
-//		System.setProperty("hostsabiusdb", "racsab.unimedfortaleza.com.br");
-//		System.setProperty("servicesabiusdb", "sab");
-//		System.setProperty("portsabiusdb", "1522");
-//		System.setProperty("usersabiusdb", "reader");
-//		System.setProperty("passwordsabiusdb", "reader");
+		System.setProperty("uri", "http://tf1jboss.unimedfortaleza.com.br:8081/sabius-servicos-web/rest-servicos/visitaSocial/incluir");
+		System.setProperty("user", "SALESFORCE");
+		System.setProperty("password", "2al3F0RC3");
+		System.setProperty("hostdb", "racmv.unimedfortaleza.com.br");
+		System.setProperty("servicedb", "mv");
+		System.setProperty("portdb", "1528");
+		System.setProperty("userdb", "reader");
+		System.setProperty("passworddb", "reader");
+		System.setProperty("hostsabiusdb", "racsab.unimedfortaleza.com.br");
+		System.setProperty("servicesabiusdb", "sab");
+		System.setProperty("portsabiusdb", "1522");
+		System.setProperty("usersabiusdb", "reader");
+		System.setProperty("passwordsabiusdb", "reader");
 		
 		uri = System.getProperty("uri");
 		user = System.getProperty("user");

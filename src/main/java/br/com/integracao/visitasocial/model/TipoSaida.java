@@ -36,4 +36,9 @@ public class TipoSaida implements Serializable {
 	public void setDescTipoSaida(String descTipoSaida) {
 		this.descTipoSaida = descTipoSaida;
 	}
+
+	@Override
+	public String toString() {
+		return "TipoSaida [codTipoSaida=" + codTipoSaida + ", descTipoSaida=" + descTipoSaida + "]";
+	}
 }

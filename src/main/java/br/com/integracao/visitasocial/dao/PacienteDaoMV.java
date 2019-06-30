@@ -2,9 +2,9 @@ package br.com.integracao.visitasocial.dao;
 
 import java.util.List;
 
-import br.com.integracao.visitasocial.model.PacienteMV;
+import br.com.integracao.visitasocial.model.Paciente;
 
 public interface PacienteDaoMV
 {	
-	List<PacienteMV> obterDados() throws Exception;
+	List<Paciente> obterDados() throws Exception;
 }
